@@ -2,7 +2,10 @@ use futures::{future::join_all, TryFutureExt};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    env_logger::init();
+    tracing_subscriber::fmt()
+        .with_env_filter(tracing_subscriber::EnvFilter::from_default_env())
+        .pretty()
+        .init();
 
     let client = reqwest::Client::builder()
         .danger_accept_invalid_certs(true)
